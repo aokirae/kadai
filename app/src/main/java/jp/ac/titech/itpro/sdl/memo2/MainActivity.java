@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     // ListViewに設定するデータ
     List<Map<String,String>> mList = null;
 
+    // 改行コード
+    String sep = System.lineSeparator();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("NAME", mList.get(position).get("filename"));
                 intent.putExtra("TITLE",mList.get(position).get("title"));
                 intent.putExtra("CONTENT", mList.get(position).get("content"));
+                intent.putExtra("DATE", mList.get(position).get("date"));
                 startActivity(intent);
             }
         });
@@ -94,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
             String fileName = files[i].getName();
             if (files[i].isFile() && fileName.endsWith(".txt")){
                 String title = null;
-                String content = null;
+                String content = "";
+                String date = "";
                 // ファイルを読み込み
                 try {
                     InputStream in = this.openFileInput(fileName);
@@ -104,7 +109,13 @@ public class MainActivity extends AppCompatActivity {
                     title = reader.readLine();
                     //内容を読み込み
                     int num = reader.read(buf);
-                    content = new String(buf,0,num);
+                    String dateContent = new String(buf,0,num);
+                    String[] dateContents = dateContent.split(sep);
+                    for(int j = 0; j < dateContents.length; j+=2){
+                        // date, content,date,content ……
+                        date = date + dateContents[j] + sep;
+                        content = content + dateContents[j+1] + sep;
+                    }
 
                     reader.close();
                     in.close();
@@ -118,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 map.put("filename",fileName);
                 map.put("title",title);
                 map.put("content",content);
+                map.put("date", date);
                 mList.add(map);
             }
         }
