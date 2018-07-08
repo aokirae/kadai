@@ -35,11 +35,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <EditText
             android:id="@+id/eTxtDate"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:inputType="none"
+            />
 
         <EditText
             android:id="@+id/eTxtContent"

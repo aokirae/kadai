@@ -57,7 +57,7 @@ public class EditActivity extends AppCompatActivity implements TextWatcher{
     List<String> nextDate = new ArrayList<String>();
 
     // 日時
-    TextView eTxtDate;
+    EditText eTxtDate;
 
     // 改行コード
     String sep = System.lineSeparator();
@@ -74,7 +74,7 @@ public class EditActivity extends AppCompatActivity implements TextWatcher{
         // タイトルと内容入力用のEditTextを取得
         EditText eTxtTitle = (EditText)findViewById(R.id.eTxtTitle);
         EditText eTxtContent = (EditText)findViewById(R.id.eTxtContent);
-        eTxtDate = (TextView)findViewById(R.id.eTxtDate);
+        eTxtDate = (EditText) findViewById(R.id.eTxtDate);
 
 
         // TextWatcherを登録
@@ -207,7 +207,7 @@ public class EditActivity extends AppCompatActivity implements TextWatcher{
         nextContent = Arrays.asList(s.toString().split(sep));
         // 日時を取得
         Date date = new Date(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_HH", Locale.JAPAN);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_HH_mm", Locale.JAPAN);
         String nowDate = sdf.format(date);
 
         // 差分を取得
